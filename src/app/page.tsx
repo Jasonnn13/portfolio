@@ -1,103 +1,75 @@
-import Image from "next/image";
+"use client";
+import { useState } from "react";
+import Info from "./info";
+import Projects from "./projects";
+import Contact from "./contact";
+
+const Skills = () => (
+  <div className="space-y-4">
+    <h2 className="text-xl font-medium" style={{ fontFamily: 'var(--font-display)' }}>Skills</h2>
+    <div className="flex flex-wrap gap-2 text-xs font-mono">
+      {["TypeScript","Python","Next.js","Tailwind","LangChain","OpenAI API","Vector DBs","RAG"]
+        .map(s => <span key={s} className="px-2 py-1 rounded bg-neutral-400/60 dark:bg-neutral-600/60 text-neutral-800 dark:text-neutral-100">{s}</span>)}
+    </div>
+  </div>
+);
+
+const SECTIONS = [
+  { key: "about", label: "About", component: Info },
+  { key: "projects", label: "Projects", component: Projects },
+  { key: "skills", label: "Skills", component: Skills },
+  { key: "contact", label: "Contact", component: Contact },
+];
 
 export default function Home() {
+  const [active, setActive] = useState<string>(SECTIONS[0].key);
+  const ActiveComponent = SECTIONS.find(s => s.key === active)?.component || (() => null);
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <main className="min-h-screen w-full flex bg-gray-100 dark:bg-neutral-900 p-6 sm:p-9 overflow-hidden">
+  <div className="w-full min-h-[calc(100vh-48px)] sm:min-h-[calc(100vh-72px)] rounded-md border border-white bg-neutral-300 dark:bg-neutral-700 px-6 sm:px-10 py-8 flex flex-col overflow-hidden">
+        <header className="mb-4">
+          <h1
+            className="font-light tracking-[0.08em] text-neutral-900 dark:text-neutral-100 text-[52px] sm:text-[74px] leading-[0.95] select-none"
+            style={{ fontFamily: 'var(--font-display)' }}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            Benedictus Jason
+          </h1>
+          <p
+            className="mt-3 text-[13px] sm:text-sm text-neutral-700 dark:text-neutral-300 font-normal tracking-[0.15em] uppercase"
+            style={{ fontFamily: 'var(--font-mono)' }}
           >
-            Read our docs
-          </a>
+            AI Developer
+          </p>
+        </header>
+        <div className="flex flex-1 min-h-0 gap-8">
+          <nav className="w-40 shrink-0 border-r border-white/70 dark:border-white/30 pr-4 flex flex-col">
+            <ul className="space-y-2">
+              {SECTIONS.map(s => {
+                const current = s.key === active;
+                return (
+                  <li key={s.key}>
+                    <button
+                      onClick={() => setActive(s.key)}
+                      aria-current={current ? "page" : undefined}
+                      className={
+                        `w-full text-left text-sm tracking-wide font-mono px-2 py-1 rounded transition ` +
+                        (current
+                          ? 'bg-neutral-500/40 dark:bg-neutral-600/50 text-neutral-900 dark:text-neutral-100'
+                          : 'hover:bg-neutral-400/40 dark:hover:bg-neutral-600/40 text-neutral-800 dark:text-neutral-200')
+                      }
+                    >
+                      {s.label}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+            <section className="flex-1 overflow-auto pr-2 pb-4">
+              <ActiveComponent />
+            </section>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </div>
+    </main>
   );
 }
