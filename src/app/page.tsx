@@ -28,7 +28,6 @@ export default function Home() {
   const ActiveComponent = SECTIONS.find(s => s.key === active)?.component || (() => null);
   return (
     <main className="min-h-screen w-full flex bg-gray-100 dark:bg-neutral-900 p-6 sm:p-9 overflow-hidden">
-  {/* Outer container fixed height; internal scroll only on right section */}
   <div className="w-full h-[calc(100vh-48px)] sm:h-[calc(100vh-72px)] rounded-md border border-white bg-neutral-300 dark:bg-neutral-700 px-6 sm:px-10 py-8 flex flex-col overflow-hidden">
         <header className="mb-4">
           <h1

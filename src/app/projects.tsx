@@ -41,7 +41,7 @@ const PROJECTS: Project[] = [
 		slug: "fruit-classification-cnn",
 		description: "CNN-based model to classify fruit images; explores computer vision preprocessing & model deployment.",
 		stack: ["Python", "TensorFlow", "Computer Vision", "Streamlit"],
-		url: "https://github.com/Jasonnn13/FruitClassification",
+		url: "https://github.com/Jasonnn13/FruitClassifier",
 	},
 	{
 		name: "Inventory Management System",
