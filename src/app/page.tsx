@@ -28,7 +28,8 @@ export default function Home() {
   const ActiveComponent = SECTIONS.find(s => s.key === active)?.component || (() => null);
   return (
     <main className="min-h-screen w-full flex bg-gray-100 dark:bg-neutral-900 p-6 sm:p-9 overflow-hidden">
-  <div className="w-full min-h-[calc(100vh-48px)] sm:min-h-[calc(100vh-72px)] rounded-md border border-white bg-neutral-300 dark:bg-neutral-700 px-6 sm:px-10 py-8 flex flex-col overflow-hidden">
+  {/* Outer container fixed height; internal scroll only on right section */}
+  <div className="w-full h-[calc(100vh-48px)] sm:h-[calc(100vh-72px)] rounded-md border border-white bg-neutral-300 dark:bg-neutral-700 px-6 sm:px-10 py-8 flex flex-col overflow-hidden">
         <header className="mb-4">
           <h1
             className="font-light tracking-[0.08em] text-neutral-900 dark:text-neutral-100 text-[52px] sm:text-[74px] leading-[0.95] select-none"
@@ -43,7 +44,7 @@ export default function Home() {
             AI Developer
           </p>
         </header>
-        <div className="flex flex-1 min-h-0 gap-8">
+  <div className="flex flex-1 min-h-0 gap-8">
           <nav className="w-40 shrink-0 border-r border-white/70 dark:border-white/30 pr-4 flex flex-col">
             <ul className="space-y-2">
               {SECTIONS.map(s => {
@@ -67,7 +68,7 @@ export default function Home() {
               })}
             </ul>
           </nav>
-            <section className="flex-1 overflow-auto pr-2 pb-4">
+            <section className="flex-1 min-h-0 overflow-y-auto pr-2 pb-4 no-scrollbar">
               <ActiveComponent />
             </section>
         </div>

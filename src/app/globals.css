@@ -29,7 +29,15 @@ body {
   font-family: var(--font-display), system-ui, sans-serif;
 }
 
-/* Noise surface utility */
+.no-scrollbar {
+  -ms-overflow-style: none; 
+  scrollbar-width: none; 
+}
+.no-scrollbar::-webkit-scrollbar { 
+  width: 0;
+  height: 0;
+}
+
 .noise-surface {
   position: relative;
   background:
