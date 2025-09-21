@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Info from "./info";
 import Projects from "./projects";
 import Contact from "./contact";
@@ -25,10 +25,51 @@ const SECTIONS = [
 
 export default function Home() {
   const [active, setActive] = useState<string>(SECTIONS[0].key);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const drawerRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setMobileOpen(false); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const handler = (e: MouseEvent) => {
+      if (drawerRef.current && !drawerRef.current.contains(e.target as Node)) {
+        setMobileOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, [mobileOpen]);
   const ActiveComponent = SECTIONS.find(s => s.key === active)?.component || (() => null);
+  const handleSelect = (k: string) => { setActive(k); setMobileOpen(false); };
+  const NavList = () => (
+    <ul className="space-y-2">
+      {SECTIONS.map(s => {
+        const current = s.key === active;
+        return (
+          <li key={s.key}>
+            <button
+              onClick={() => handleSelect(s.key)}
+              aria-current={current ? 'page' : undefined}
+              className={
+                `w-full text-left text-sm tracking-wide font-mono px-2 py-1 rounded transition ` +
+                (current
+                  ? 'bg-neutral-500/40 dark:bg-neutral-600/50 text-neutral-900 dark:text-neutral-100'
+                  : 'hover:bg-neutral-400/40 dark:hover:bg-neutral-600/40 text-neutral-800 dark:text-neutral-200')
+              }
+            >
+              {s.label}
+            </button>
+          </li>
+        );
+      })}
+    </ul>
+  );
   return (
     <main className="min-h-screen w-full flex bg-gray-100 dark:bg-neutral-900 p-6 sm:p-9 overflow-hidden">
-  <div className="w-full h-[calc(100vh-48px)] sm:h-[calc(100vh-72px)] rounded-md border border-white bg-neutral-300 dark:bg-neutral-700 px-6 sm:px-10 py-8 flex flex-col overflow-hidden">
+  <div className="w-full h-[calc(100vh-48px)] sm:h-[calc(100vh-72px)] rounded-md border border-white bg-neutral-300 dark:bg-neutral-700 px-6 sm:px-10 py-8 flex flex-col overflow-hidden fine-noise fine-noise-tint">
         <header className="mb-4">
           <h1
             className="font-light tracking-[0.08em] text-neutral-900 dark:text-neutral-100 text-[52px] sm:text-[74px] leading-[0.95] select-none"
@@ -42,34 +83,47 @@ export default function Home() {
           >
             AI Developer
           </p>
+          {/* Mobile hamburger */}
+          <div className="mt-4 flex items-center sm:hidden">
+            <button
+              onClick={() => setMobileOpen(o => !o)}
+              aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-expanded={mobileOpen}
+              className="inline-flex items-center gap-2 rounded border border-white/60 dark:border-white/30 px-3 py-1.5 bg-white/40 dark:bg-neutral-600/40 backdrop-blur-sm text-neutral-800 dark:text-neutral-100 active:scale-[.97] transition"
+            >
+              <span className="relative w-5 h-4 block">
+                <span className={`absolute left-0 h-0.5 w-full bg-neutral-800 dark:bg-neutral-100 transition-transform duration-300 ${mobileOpen ? 'translate-y-1.5 rotate-45' : 'translate-y-0'}`}></span>
+                <span className={`absolute left-0 top-1/2 -translate-y-1/2 h-0.5 w-full bg-neutral-800 dark:bg-neutral-100 transition-opacity duration-300 ${mobileOpen ? 'opacity-0' : 'opacity-100'}`}></span>
+                <span className={`absolute left-0 h-0.5 w-full bg-neutral-800 dark:bg-neutral-100 transition-transform duration-300 ${mobileOpen ? '-translate-y-1.5 -rotate-45 bottom-auto top-3' : 'translate-y-3'}`}></span>
+              </span>
+              <span className="font-mono text-xs tracking-wide">MENU</span>
+            </button>
+          </div>
         </header>
   <div className="flex flex-1 min-h-0 gap-8">
-          <nav className="w-40 shrink-0 border-r border-white/70 dark:border-white/30 pr-4 flex flex-col">
-            <ul className="space-y-2">
-              {SECTIONS.map(s => {
-                const current = s.key === active;
-                return (
-                  <li key={s.key}>
-                    <button
-                      onClick={() => setActive(s.key)}
-                      aria-current={current ? "page" : undefined}
-                      className={
-                        `w-full text-left text-sm tracking-wide font-mono px-2 py-1 rounded transition ` +
-                        (current
-                          ? 'bg-neutral-500/40 dark:bg-neutral-600/50 text-neutral-900 dark:text-neutral-100'
-                          : 'hover:bg-neutral-400/40 dark:hover:bg-neutral-600/40 text-neutral-800 dark:text-neutral-200')
-                      }
-                    >
-                      {s.label}
-                    </button>
-                  </li>
-                );
-              })}
-            </ul>
+          <nav className="hidden sm:flex w-40 shrink-0 border-r border-white/70 dark:border-white/30 pr-4 flex-col">
+            <NavList />
           </nav>
             <section className="flex-1 min-h-0 overflow-y-auto pr-2 pb-4 no-scrollbar">
-              <ActiveComponent />
+              <div key={active} className="fade-in-soft">
+                <ActiveComponent />
+              </div>
             </section>
+        </div>
+        <div className={`sm:hidden pointer-events-none fixed inset-0 z-40 transition ${mobileOpen ? 'pointer-events-auto' : ''}`}>
+          <div
+            className={`absolute inset-0 bg-neutral-900/40 backdrop-blur-[2px] transition-opacity ${mobileOpen ? 'opacity-100' : 'opacity-0'}`}
+            aria-hidden="true"
+          />
+          <div
+            ref={drawerRef}
+            className={`absolute top-0 left-0 h-full w-64 max-w-[80%] bg-neutral-200/80 dark:bg-neutral-800/80 backdrop-blur-md border-r border-white/60 dark:border-white/20 px-4 pt-24 pb-8 flex flex-col transform transition-transform duration-300 ease-[cubic-bezier(.4,.22,.2,1)] ${mobileOpen ? 'translate-x-0' : '-translate-x-full'}`}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Navigation menu"
+          >
+            <NavList />
+          </div>
         </div>
       </div>
     </main>
