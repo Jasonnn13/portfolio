@@ -147,3 +147,9 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .fade-in-soft { animation: none; }
 }
+
+@keyframes slideInX { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+@keyframes fadeBg { from { opacity:0; } to { opacity:1; } }
+.animate-slideIn { animation: slideInX .32s cubic-bezier(.4,.22,.2,1); }
+.animate-fade { animation: fadeBg .32s linear; }
+@media (prefers-reduced-motion: reduce) { .animate-slideIn, .animate-fade { animation: none; } }

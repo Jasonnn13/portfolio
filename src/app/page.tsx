@@ -27,34 +27,34 @@ export default function Home() {
   const [active, setActive] = useState<string>(SECTIONS[0].key);
   const [mobileOpen, setMobileOpen] = useState(false);
   const drawerRef = useRef<HTMLDivElement | null>(null);
+  const firstNavButtonRef = useRef<HTMLButtonElement | null>(null);
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setMobileOpen(false); };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, []);
   useEffect(() => {
-    if (!mobileOpen) return;
-    const handler = (e: MouseEvent) => {
-      if (drawerRef.current && !drawerRef.current.contains(e.target as Node)) {
-        setMobileOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handler);
-    return () => document.removeEventListener('mousedown', handler);
+    if (mobileOpen) {
+      const prevOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      requestAnimationFrame(() => { firstNavButtonRef.current?.focus(); });
+      return () => { document.body.style.overflow = prevOverflow; };
+    }
   }, [mobileOpen]);
   const ActiveComponent = SECTIONS.find(s => s.key === active)?.component || (() => null);
   const handleSelect = (k: string) => { setActive(k); setMobileOpen(false); };
-  const NavList = () => (
+  const NavList = ({ attachRef = false }: { attachRef?: boolean }) => (
     <ul className="space-y-2">
-      {SECTIONS.map(s => {
+      {SECTIONS.map((s, i) => {
         const current = s.key === active;
         return (
           <li key={s.key}>
             <button
+              ref={attachRef && i === 0 ? firstNavButtonRef : undefined}
               onClick={() => handleSelect(s.key)}
               aria-current={current ? 'page' : undefined}
               className={
-                `w-full text-left text-sm tracking-wide font-mono px-2 py-1 rounded transition ` +
+                `w-full text-left text-sm tracking-wide font-mono px-2 py-1 rounded outline-none focus:ring-2 focus:ring-neutral-800/40 dark:focus:ring-white/30 transition ` +
                 (current
                   ? 'bg-neutral-500/40 dark:bg-neutral-600/50 text-neutral-900 dark:text-neutral-100'
                   : 'hover:bg-neutral-400/40 dark:hover:bg-neutral-600/40 text-neutral-800 dark:text-neutral-200')
@@ -81,14 +81,14 @@ export default function Home() {
             className="mt-3 text-[13px] sm:text-sm text-neutral-700 dark:text-neutral-300 font-normal tracking-[0.15em] uppercase"
             style={{ fontFamily: 'var(--font-mono)' }}
           >
-            AI Developer
+            Tech Enthusiast
           </p>
-          {/* Mobile hamburger */}
           <div className="mt-4 flex items-center sm:hidden">
             <button
               onClick={() => setMobileOpen(o => !o)}
               aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={mobileOpen}
+              aria-controls="mobile-nav"
               className="inline-flex items-center gap-2 rounded border border-white/60 dark:border-white/30 px-3 py-1.5 bg-white/40 dark:bg-neutral-600/40 backdrop-blur-sm text-neutral-800 dark:text-neutral-100 active:scale-[.97] transition"
             >
               <span className="relative w-5 h-4 block">
@@ -110,21 +110,22 @@ export default function Home() {
               </div>
             </section>
         </div>
-        <div className={`sm:hidden pointer-events-none fixed inset-0 z-40 transition ${mobileOpen ? 'pointer-events-auto' : ''}`}>
-          <div
-            className={`absolute inset-0 bg-neutral-900/40 backdrop-blur-[2px] transition-opacity ${mobileOpen ? 'opacity-100' : 'opacity-0'}`}
-            aria-hidden="true"
-          />
-          <div
-            ref={drawerRef}
-            className={`absolute top-0 left-0 h-full w-64 max-w-[80%] bg-neutral-200/80 dark:bg-neutral-800/80 backdrop-blur-md border-r border-white/60 dark:border-white/20 px-4 pt-24 pb-8 flex flex-col transform transition-transform duration-300 ease-[cubic-bezier(.4,.22,.2,1)] ${mobileOpen ? 'translate-x-0' : '-translate-x-full'}`}
-            role="dialog"
-            aria-modal="true"
-            aria-label="Navigation menu"
-          >
-            <NavList />
+        {mobileOpen && (
+          <div className="sm:hidden fixed inset-0 z-40" role="dialog" aria-modal="true" aria-label="Navigation menu">
+            <button
+              className="absolute inset-0 bg-neutral-900/40 backdrop-blur-[2px] animate-fade bg-opacity-40"
+              aria-label="Close menu"
+              onClick={() => setMobileOpen(false)}
+            />
+            <div
+              id="mobile-nav"
+              ref={drawerRef}
+              className="absolute top-0 left-0 h-full w-64 max-w-[80%] bg-neutral-200/80 dark:bg-neutral-800/80 backdrop-blur-md border-r border-white/60 dark:border-white/20 px-4 pt-24 pb-8 flex flex-col transform translate-x-0 animate-slideIn"
+            >
+              <NavList attachRef />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </main>
   );
