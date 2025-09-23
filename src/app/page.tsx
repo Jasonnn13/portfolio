@@ -50,7 +50,7 @@ export default function Home() {
         return (
           <li key={s.key}>
             <button
-              ref={attachRef && i === 0 ? firstNavButtonRef : undefined}
+              ref={attachRef && current ? firstNavButtonRef : undefined}
               onClick={() => handleSelect(s.key)}
               aria-current={current ? 'page' : undefined}
               className={
