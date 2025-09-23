@@ -40,14 +40,7 @@ export default function Projects() {
                 className="block px-4 py-3 outline-none focus:ring-2 focus:ring-neutral-800/40 dark:focus:ring-white/30 rounded"
               >
                 <div className="flex items-baseline justify-between gap-4">
-                  <span className="flex items-center gap-2 font-mono text-sm tracking-wide text-neutral-800 dark:text-neutral-100 underline decoration-transparent group-hover:decoration-neutral-600/60 dark:group-hover:decoration-neutral-300/60 transition">
-                    /{p.slug}
-                    {p.extra && (
-                      <span className="text-[10px] not-italic font-normal px-1.5 py-0.5 rounded bg-amber-400/70 dark:bg-amber-300/30 text-neutral-900 dark:text-amber-200 border border-amber-500/60 dark:border-amber-300/40 tracking-normal">
-                        EXTRA
-                      </span>
-                    )}
-                  </span>
+                  <span className="font-mono text-sm tracking-wide text-neutral-800 dark:text-neutral-100 underline decoration-transparent group-hover:decoration-neutral-600/60 dark:group-hover:decoration-neutral-300/60 transition">/{p.slug}</span>
                   <div className="flex flex-wrap gap-1.5 justify-end">
                     {p.stack.map(t => (
                       <span key={t} className="px-2 py-0.5 rounded bg-neutral-500/30 dark:bg-neutral-700/50 text-[10px] font-mono tracking-wide text-neutral-900 dark:text-neutral-200">{t}</span>
