@@ -1,6 +1,5 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-  import { useSearchParams } from "next/navigation";
 import Info from "./info";
 import Projects from "./projects";
 import Contact from "./contact";
@@ -25,9 +24,8 @@ const SECTIONS = [
 ];
 
 export default function Home() {
-  const searchParams = useSearchParams();
-  const initial = searchParams.get('section');
-  const [active, setActive] = useState<string>(initial && SECTIONS.some(s => s.key === initial) ? initial : SECTIONS[0].key);
+  // Removed search param logic; always start at the first section (About)
+  const [active, setActive] = useState<string>(SECTIONS[0].key);
   const [mobileOpen, setMobileOpen] = useState(false);
   const drawerRef = useRef<HTMLDivElement | null>(null);
   const firstNavButtonRef = useRef<HTMLButtonElement | null>(null);
