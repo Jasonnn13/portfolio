@@ -48,7 +48,7 @@ export default function Home() {
   const handleSelect = (k: string) => { setActive(k); setMobileOpen(false); };
   const NavList = ({ attachRef = false }: { attachRef?: boolean }) => (
     <ul className="space-y-2">
-      {SECTIONS.map((s, i) => {
+  {SECTIONS.map((s) => {
         const current = s.key === active;
         return (
           <li key={s.key}>

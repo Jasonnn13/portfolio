@@ -3,7 +3,8 @@ export interface Project {
   slug: string;
   description: string;
   stack: string[];
-  url?: string; // external URL or internal route
+  url?: string; 
+  extra?: boolean;
 }
 
 export const PROJECTS: Project[] = [
@@ -13,6 +14,7 @@ export const PROJECTS: Project[] = [
     description: "Lightweight AI-enhanced interface experiment – focuses on minimal UI + semantic hinting.",
     stack: ["Next.js", "TypeScript", "AI"],
     url: "/extra/aisee",
+    extra: true,
   },
   {
     name: "Glamulus",
@@ -20,6 +22,7 @@ export const PROJECTS: Project[] = [
     description: "Playground for visual/glassmorphism styling and animated layout primitives.",
     stack: ["Design System", "UI/UX", "Animation"],
     url: "/extra/glamulus",
+    extra: true,
   },
   {
     name: "Leluri",

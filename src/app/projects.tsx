@@ -1,27 +1,53 @@
 "use client";
 import Link from "next/link";
-import { PROJECTS } from "../lib/projects";
+import { PROJECTS, Project } from "../lib/projects";
+
+type WrapperProps = {
+  href: string;
+  external: boolean;
+  children: React.ReactNode;
+  className: string;
+};
+
+function Wrapper({ href, external, children, className }: WrapperProps) {
+  if (external) {
+    return (
+      <a href={href} target="_blank" rel="noreferrer" className={className}>
+        {children}
+      </a>
+    );
+  }
+  return (
+    <Link href={href} className={className}>
+      {children}
+    </Link>
+  );
+}
 
 export default function Projects() {
   return (
     <div className="space-y-5">
       <h2 className="text-xl font-medium" style={{ fontFamily: 'var(--font-display)' }}>Highlighted Projects</h2>
       <ul className="space-y-4">
-        {PROJECTS.map(p => {
+        {PROJECTS.map((p: Project) => {
           const href = p.url || `https://example.com/${p.slug}`;
           const external = href.startsWith('http');
-          const Wrapper: any = external ? 'a' : Link;
-          const wrapperProps = external
-            ? { href, target: '_blank', rel: 'noreferrer' }
-            : { href };
           return (
             <li key={p.slug} className="group rounded border border-white/40 dark:border-white/20 bg-white/40 dark:bg-neutral-600/30 backdrop-blur-sm transition hover:border-white/70 dark:hover:border-white/40 focus-within:border-white/80">
               <Wrapper
-                {...wrapperProps}
+                href={href}
+                external={external}
                 className="block px-4 py-3 outline-none focus:ring-2 focus:ring-neutral-800/40 dark:focus:ring-white/30 rounded"
               >
                 <div className="flex items-baseline justify-between gap-4">
-                  <span className="font-mono text-sm tracking-wide text-neutral-800 dark:text-neutral-100 underline decoration-transparent group-hover:decoration-neutral-600/60 dark:group-hover:decoration-neutral-300/60 transition">/{p.slug}</span>
+                  <span className="flex items-center gap-2 font-mono text-sm tracking-wide text-neutral-800 dark:text-neutral-100 underline decoration-transparent group-hover:decoration-neutral-600/60 dark:group-hover:decoration-neutral-300/60 transition">
+                    /{p.slug}
+                    {p.extra && (
+                      <span className="text-[10px] not-italic font-normal px-1.5 py-0.5 rounded bg-amber-400/70 dark:bg-amber-300/30 text-neutral-900 dark:text-amber-200 border border-amber-500/60 dark:border-amber-300/40 tracking-normal">
+                        EXTRA
+                      </span>
+                    )}
+                  </span>
                   <div className="flex flex-wrap gap-1.5 justify-end">
                     {p.stack.map(t => (
                       <span key={t} className="px-2 py-0.5 rounded bg-neutral-500/30 dark:bg-neutral-700/50 text-[10px] font-mono tracking-wide text-neutral-900 dark:text-neutral-200">{t}</span>
