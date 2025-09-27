@@ -8,8 +8,8 @@ const Skills = () => (
   <div className="space-y-4">
     <h2 className="text-xl font-medium" style={{ fontFamily: 'var(--font-display)' }}>Skills</h2>
     <div className="flex flex-wrap gap-2 text-xs font-mono">
-      {["TypeScript","JavaScript", "C", "Python","Next.js","Tailwind","Machine Learning", "Deep Learning", "Computer Vision", "OpenAI API","Firebase", "Supabase", "MySQL", "Laravel", "Database Design", "Rest API", "CI/CD",
-        "IoT"
+      {["TypeScript","JavaScript", "C", "Python", "Java", "Next.js","Tailwind","Machine Learning", "Deep Learning", "Computer Vision", "OpenAI API","Firebase", "Supabase", "MySQL", "Laravel", "Database Design", "Rest API", "CI/CD",
+        "IoT", "NumPy", "Pandas", "PyTorch", "Keras", "Tensorflow", "Scikit-learn", "Jupyter", "Azure", "Git/Github"
       ]
         .map(s => <span key={s} className="px-2 py-1 rounded bg-neutral-400/60 dark:bg-neutral-600/60 text-neutral-800 dark:text-neutral-100">{s}</span>)}
     </div>
@@ -24,7 +24,6 @@ const SECTIONS = [
 ];
 
 export default function Home() {
-  // Removed search param logic; always start at the first section (About)
   const [active, setActive] = useState<string>(SECTIONS[0].key);
   const [mobileOpen, setMobileOpen] = useState(false);
   const drawerRef = useRef<HTMLDivElement | null>(null);
