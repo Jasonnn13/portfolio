@@ -1,6 +1,6 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import Info from "./info";
+import About from "./about";
 import Projects from "./projects";
 import Contact from "./contact";
 
@@ -17,7 +17,7 @@ const Skills = () => (
 );
 
 const SECTIONS = [
-  { key: "about", label: "About", component: Info },
+  { key: "about", label: "About", component: About },
   { key: "projects", label: "Projects", component: Projects },
   { key: "skills", label: "Skills", component: Skills },
   { key: "contact", label: "Contact", component: Contact },
