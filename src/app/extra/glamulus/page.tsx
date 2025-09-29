@@ -42,6 +42,14 @@ export default function GlamulusPage() {
         <p>
           This project is called Glamulus, a pair of smart glasses designed to help the deaf and hard-of-hearing community communicate more easily. These glasses use an ESP32 microcontroller, a microphone, an OV2640 camera, and an OLED display to capture speech and translate it into real-time text right in front of the user’s eyes. They also support live speech translation between foreign languages and Bahasa Indonesia, along with SIBI and BISINDO sign language translation to make everyday communication smoother. On top of that, Glamulus connects to a smart dashboard built with Next.js, Python, Ultralytics, and Azure services, which organizes conversations into notes with the help of Azure OpenAI. In short, Glamulus combines IoT hardware and AI software to give deaf individuals more independence and confidence in communication.
         </p>
+        <h3 className="text-base font-semibold mt-4">My role (IoT Engineer)</h3>
+        <ul className="list-disc pl-5">
+          <li>Integrate and calibrate ESP32, microphone, OV2640 camera, and OLED display for reliable on-device capture and feedback.</li>
+          <li>Design the firmware pipeline for audio capture, speech-to-text triggering, and camera events with efficient buffering.</li>
+          <li>Implement robust connectivity (Wi‑Fi/BLE) and secure data flow to the Next.js/Python dashboard and Azure services.</li>
+          <li>Handle power management, device health monitoring, and OTA/remote configuration to keep devices stable in the field.</li>
+          <li>Ensure synchronized data exchange so transcription, translation, and sign-language processing work seamlessly end‑to‑end.</li>
+        </ul>
       </section>
       <figure>
         <div className="relative w-full max-w-md aspect-video overflow-hidden rounded-lg border border-white/40 dark:border-white/20 bg-neutral-200/40 dark:bg-neutral-700/30">
