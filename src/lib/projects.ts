@@ -59,7 +59,7 @@ export const PROJECTS: Project[] = [
   {
     name: "movie-recommendation-system-using-singular-value-decomposition-(SVD)",
     slug: "movie-recommendation-system-using-singular-value-decomposition-(SVD)",
-    description: "This project demonstrates the development of a personalized movie recommendation system using the MovieLens 100k dataset. The process begins with merging movie ratings and movie details into a unified dataframe, followed by an Exploratory Data Analysis (EDA) to explore rating patterns and identify top movies. The core model is built using Singular Value Decomposition (SVD), a collaborative filtering algorithm implemented with the surprise library, to predict user ratings. The system’s performance is rigorously tested through cross-validation, ensuring accuracy and robustness. This notebook provides a practical example of building, training, and evaluating a recommendation model from start to finish.",
+    description: "MovieLens 100k recommender using SVD (surprise), with EDA, training, cross-validation, and evaluation in one notebook.",
     stack: ["Python", "Pandas", "NumPy", "Matplotlib", "Seaborn", "Scikit-learn"],
     url: "https://colab.research.google.com/drive/1z2AU70w4CIw7k7tE36AuPapS1079zvNn?usp=sharing"
   },
