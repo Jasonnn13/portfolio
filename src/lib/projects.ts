@@ -8,18 +8,18 @@ export interface Project {
 
 export const PROJECTS: Project[] = [
   {
-    name: "Aisee",
-    slug: "aisee",
-    description: "AiSee is an AI-powered attendance and cheating detection system that integrates computer vision, web tools, and IoT devices.",
-    stack: ["Python", "Streamlit", "OpenCV", "Firebase", "Cloudinary", "IoT"],
-    url: "/extra/aisee",
-  },
-  {
     name: "Glamulus",
     slug: "glamulus",
     description: "Glamulus is a pair of AI-powered smart glasses that combine IoT hardware and Azure-based AI to provide real-time speech-to-text, translation, and sign language support for the deaf and hard-of-hearing community.",
     stack: ["Python", "Next.js", "IoT", "Azure", "Ultralytics"],
     url: "/extra/glamulus",
+  },
+  {
+    name: "Aisee",
+    slug: "aisee",
+    description: "AiSee is an AI-powered attendance and cheating detection system that integrates computer vision, web tools, and IoT devices.",
+    stack: ["Python", "Streamlit", "OpenCV", "Firebase", "Cloudinary", "IoT"],
+    url: "/extra/aisee",
   },
   {
     name: "Leluri",
