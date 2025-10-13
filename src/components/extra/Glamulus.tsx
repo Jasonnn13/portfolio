@@ -22,17 +22,17 @@ export default function GlamulusExtra({ onBack }: { onBack: () => void }) {
 
   return (
     <article className={`space-y-6 transform transition-all duration-200 ease-out ${visible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-1"}`}>
-      <div className="flex justify-end">
-        <button
-          type="button"
-          onClick={handleBack}
-          className="inline-flex items-center font-mono text-xs tracking-wide px-3 py-1.5 rounded border border-white/70 dark:border-white/30 bg-white/40 dark:bg-neutral-600/40 backdrop-blur-sm text-neutral-800 dark:text-neutral-100 active:scale-[.97] transition"
-        >
-          ← Back
-        </button>
-      </div>
       <header className="space-y-2">
-        <h1 className="text-2xl font-semibold" style={{ fontFamily: 'var(--font-display)' }}>{project.name}</h1>
+        <div className="flex items-start justify-between gap-4">
+          <h1 className="text-2xl font-semibold" style={{ fontFamily: 'var(--font-display)' }}>{project.name}</h1>
+          <button
+            type="button"
+            onClick={handleBack}
+            className="inline-flex items-center font-mono text-xs tracking-wide px-3 py-1.5 rounded border border-white/70 dark:border-white/30 bg-white/40 dark:bg-neutral-600/40 backdrop-blur-sm text-neutral-800 dark:text-neutral-100 active:scale-[.97] transition"
+          >
+            ← Back
+          </button>
+        </div>
         <div className="flex flex-wrap gap-2 pt-2">
           {project.stack.map(s => (
             <span key={s} className="px-2 py-0.5 rounded bg-neutral-500/20 dark:bg-neutral-700/40 text-[11px] font-mono tracking-wide text-neutral-800 dark:text-neutral-200">{s}</span>
