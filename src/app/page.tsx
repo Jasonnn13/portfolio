@@ -1,20 +1,11 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import About from "./about";
-import Projects from "./projects";
-import Contact from "./contact";
-
-const Skills = () => (
-  <div className="space-y-4">
-    <h2 className="text-xl font-medium" style={{ fontFamily: 'var(--font-display)' }}>Skills</h2>
-    <div className="flex flex-wrap gap-2 text-xs font-mono">
-      {["TypeScript","JavaScript", "C", "Python", "Java", "Next.js","Tailwind","Machine Learning", "Deep Learning", "Computer Vision", "OpenAI API","Firebase", "Supabase", "MySQL", "Laravel", "Database Design", "Rest API", "CI/CD",
-        "IoT", "NumPy", "Pandas", "PyTorch", "Keras", "Tensorflow", "Scikit-learn", "Jupyter", "Azure", "Git/Github"
-      ]
-        .map(s => <span key={s} className="px-2 py-1 rounded bg-neutral-400/60 dark:bg-neutral-600/60 text-neutral-800 dark:text-neutral-100">{s}</span>)}
-    </div>
-  </div>
-);
+import About from "../components/about";
+import Projects from "../components/projects";
+import Contact from "../components/contact";
+import Skills from "../components/Skills";
+import AiseeExtra from "../components/extra/Aisee";
+import GlamulusExtra from "../components/extra/Glamulus";
 
 const SECTIONS = [
   { key: "about", label: "About", component: About },
@@ -26,6 +17,7 @@ const SECTIONS = [
 export default function Home() {
   const [active, setActive] = useState<string>(SECTIONS[0].key);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [extraOpen, setExtraOpen] = useState<string | null>(null);
   const drawerRef = useRef<HTMLDivElement | null>(null);
   const firstNavButtonRef = useRef<HTMLButtonElement | null>(null);
   useEffect(() => {
@@ -43,6 +35,8 @@ export default function Home() {
   }, [mobileOpen]);
   const ActiveComponent = SECTIONS.find(s => s.key === active)?.component || (() => null);
   const handleSelect = (k: string) => { setActive(k); setMobileOpen(false); };
+  const handleOpenExtra = (slug: string) => { setActive('projects'); setExtraOpen(slug); };
+  const handleCloseExtra = () => setExtraOpen(null);
   const NavList = ({ attachRef = false }: { attachRef?: boolean }) => (
     <ul className="space-y-2">
   {SECTIONS.map((s) => {
@@ -106,7 +100,17 @@ export default function Home() {
           </nav>
             <section className="flex-1 min-h-0 overflow-y-auto pr-2 pb-4 no-scrollbar">
               <div key={active} className="fade-in-soft">
-                <ActiveComponent />
+                {active === 'projects' && extraOpen ? (
+                  extraOpen === 'aisee' ? (
+                    <AiseeExtra onBack={handleCloseExtra} />
+                  ) : extraOpen === 'glamulus' ? (
+                    <GlamulusExtra onBack={handleCloseExtra} />
+                  ) : null
+                ) : active === 'projects' ? (
+                  <Projects onOpenExtra={handleOpenExtra} />
+                ) : (
+                  <ActiveComponent />
+                )}
               </div>
             </section>
         </div>
