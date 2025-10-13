@@ -1,3 +1,5 @@
+"use client";
+
 import { PROJECTS } from "../../lib/projects";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -5,8 +7,6 @@ import { useEffect, useState } from "react";
 const project = PROJECTS.find(p => p.slug === "aisee");
 
 export default function AiseeExtra({ onBack }: { onBack: () => void }) {
-  if (!project) return null;
-
   const [visible, setVisible] = useState(false);
   useEffect(() => {
     const id = requestAnimationFrame(() => setVisible(true));
@@ -15,9 +15,10 @@ export default function AiseeExtra({ onBack }: { onBack: () => void }) {
 
   const handleBack = () => {
     setVisible(false);
-    // Match the duration-200 below to ensure exit anim completes
     setTimeout(() => onBack(), 200);
   };
+
+  if (!project) return null;
 
   return (
     <article className={`space-y-6 transform transition-all duration-200 ease-out ${visible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-1"}`}>
