@@ -32,7 +32,8 @@ export default function Projects({ onOpenExtra }: { onOpenExtra?: (slug: string)
         {PROJECTS.map((p: Project) => {
           const href = p.url || `https://example.com/${p.slug}`;
           const external = href.startsWith('http');
-          const isExtra = href.startsWith('/extra/');
+          const shouldInline = Boolean(onOpenExtra && (p.extra || p.url?.startsWith('/extra/')));
+          const isExtra = shouldInline;
           return (
             <li key={p.slug} className="group rounded border border-white/40 dark:border-white/20 bg-white/40 dark:bg-neutral-600/30 backdrop-blur-sm transition hover:border-white/70 dark:hover:border-white/40 focus-within:border-white/80">
               {isExtra && onOpenExtra ? (

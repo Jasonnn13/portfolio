@@ -4,8 +4,8 @@ import About from "../components/about";
 import Projects from "../components/projects";
 import Contact from "../components/contact";
 import Skills from "../components/Skills";
-import AiseeExtra from "../components/extra/Aisee";
-import GlamulusExtra from "../components/extra/Glamulus";
+import { PROJECTS } from "../lib/projects";
+import ProjectExtra from "../components/extra/ProjectExtra";
 
 const SECTIONS = [
   { key: "about", label: "About", component: About },
@@ -101,11 +101,12 @@ export default function Home() {
             <section className="flex-1 min-h-0 overflow-y-auto pr-2 pb-4 no-scrollbar">
               <div key={active} className="fade-in-soft">
                 {active === 'projects' && extraOpen ? (
-                  extraOpen === 'aisee' ? (
-                    <AiseeExtra onBack={handleCloseExtra} />
-                  ) : extraOpen === 'glamulus' ? (
-                    <GlamulusExtra onBack={handleCloseExtra} />
-                  ) : null
+                  (() => {
+                    const project = PROJECTS.find(p => p.slug === extraOpen);
+                    return project && project.extra ? (
+                      <ProjectExtra project={project} onBack={handleCloseExtra} />
+                    ) : null;
+                  })()
                 ) : active === 'projects' ? (
                   <Projects onOpenExtra={handleOpenExtra} />
                 ) : (
