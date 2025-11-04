@@ -18,7 +18,6 @@ const iconMap = {
 } as const;
 
 export default function ProjectExtra({ project, onBack }: ProjectExtraProps) {
-  // Hooks must be called unconditionally (no early returns before them)
   const [visible, setVisible] = useState(false);
   useEffect(() => {
     const id = requestAnimationFrame(() => setVisible(true));

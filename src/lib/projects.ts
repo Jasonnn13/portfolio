@@ -27,8 +27,6 @@ export interface Project {
   extra?: ProjectExtra;
 }
 
-// test
-
 export const PROJECTS: Project[] = [
   {
     name: "Glamulus",
@@ -149,7 +147,7 @@ export const PROJECTS: Project[] = [
       roleBullets: [
         "Developed Flask APIs powering story retrieval and Text-to-Speech playback with Azure Cognitive Services.",
         "Implemented TTS request orchestration, basic caching, and configuration for voices/languages.",
-        "Bridged the frontend with backend endpoints and handled CORS/security for public consumption.",
+        "Bridged the frontend with backend endpoints.",
       ],
       images: [],
     },
@@ -165,7 +163,7 @@ export const PROJECTS: Project[] = [
       roleTitle: "My role (Backend Developer)",
       roleBullets: [
         "Built Flask services for nutrition lookup, macro calculations, and recipe CRUD endpoints.",
-        "Modeled user data and recipe storage with Firebase; added authentication guards on write operations.",
+        "Modeled user data and recipe storage with Firebase.",
         "Optimized API responses and validation to keep the UI snappy and error-resistant.",
       ],
       images: [],
@@ -183,7 +181,6 @@ export const PROJECTS: Project[] = [
       roleBullets: [
         "Prepared data and trained a drowsiness detection pipeline; tuned thresholds for real‑time alerts.",
         "Integrated inference into a Flask server with a camera stream, focusing on low-latency processing.",
-        "Evaluated accuracy vs. performance tradeoffs and stabilized the signal to reduce false alarms.",
       ],
       images: [],
     },
