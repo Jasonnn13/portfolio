@@ -139,7 +139,7 @@ export const PROJECTS: Project[] = [
     name: "Nusakatha",
     slug: "nusakatha",
     description: "Digital library of Indonesian fairy tales with TTS accessibility; preserves folklore & promotes cultural inclusion.",
-    stack: ["Python", "TypeScript", "React", "Node.js", "Azure TTS"],
+    stack: ["Python", "TypeScript", "React", "Next.js", "Azure TTS"],
     repo: "https://github.com/Jasonnn13/Nusakatha",
     extra: {
       intro: "A digital library of Indonesian fairy tales designed for inclusivity—read or listen via Text-to-Speech—so more people can access and enjoy the archipelago's folklore. Built for GarudaHacks with a Flask + React stack and Azure TTS.",
