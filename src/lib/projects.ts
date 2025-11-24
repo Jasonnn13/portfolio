@@ -199,7 +199,7 @@ export const PROJECTS: Project[] = [
   {
     name: "movie-recommendation-system-using-singular-value-decomposition-(SVD)",
     slug: "movie-recommendation-system-SVD",
-    description: "MovieLens 100k recommender using SVD (surprise), with EDA, training, cross-validation, and evaluation in one notebook.",
+    description: "MovieLens 100k recommender using SVD, with EDA, training, cross-validation, and evaluation in one notebook.",
     stack: ["Python", "Pandas", "NumPy", "Matplotlib", "Seaborn", "Scikit-learn"],
     url: "https://colab.research.google.com/drive/1z2AU70w4CIw7k7tE36AuPapS1079zvNn?usp=sharing",
     extra: {
