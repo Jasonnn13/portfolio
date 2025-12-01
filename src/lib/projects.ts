@@ -41,7 +41,7 @@ export const PROJECTS: Project[] = [
       roleBullets: [
         "Integrate and calibrate ESP32, microphone, OV2640 camera, and OLED display for reliable on-device capture and feedback.",
         "Design the firmware pipeline for audio capture, speech-to-text triggering, and camera events with efficient buffering.",
-        "Implement robust connectivity (Wi‑Fi/BLE) and secure data flow to the Next.js/Python dashboard and Azure services.",
+        "Implement robust connectivity (Wi‑Fi/BLE) and secure data flow to the Next.js dashboard and Azure services.",
         "Handle power management, device health monitoring, and OTA/remote configuration to keep devices stable in the field.",
         "Ensure synchronized data exchange so transcription, translation, and sign-language processing work seamlessly end‑to‑end.",
       ],
